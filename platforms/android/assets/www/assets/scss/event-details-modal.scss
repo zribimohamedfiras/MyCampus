@@ -19,6 +19,12 @@
             position: relative;
             background: linear-gradient(153deg, rgba(0,170,141,1) 0%, rgba(13,170,134,0.7) 60%, rgba(255,171,0,0.5) 100%);
 
+            img {
+                width: 100%;
+                height: 100%;
+                border: none !important;
+            }
+            
             ion-icon {
                 position: absolute;
                 top: 20px;

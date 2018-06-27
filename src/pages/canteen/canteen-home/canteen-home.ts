@@ -4,6 +4,7 @@ import { Chart } from 'chart.js';
 import { ToastService } from '../../../servicesCafeteria/toast.service';
 import { ReserverService } from '../../../services_canteen/reserver.service';
 import { MealService } from '../../../services_canteen/meal.service';
+import { SideMenuControllerService } from '../../../services/side-menu-controller.service';
 
 let fromMonday = [],
 i = -6;
@@ -29,9 +30,9 @@ export class CanteenHomePage {
     sideMenuContent: {name: string, path: string}[] = [
         {name: 'Menu', path: 'MenuCanteenPage'},
         {name: 'Feedback', path: 'FeedbackCanteenPage'},
-        {name: 'Mon compte', path: 'AccountPage'},
         {name: 'Reservation', path: 'ReservationPage'},
-        {name: 'MenuEtudiant', path: 'EtudiantMenuPage'}
+        {name: 'MenuEtudiant', path: 'EtudiantMenuPage'},
+        {name: 'Mon compte', path: 'AccountPage'}
         
     ];
 
@@ -56,9 +57,11 @@ export class CanteenHomePage {
         public navCtrl: NavController,
         public navParams: NavParams,
         public events: Events,public reservationservice:ReserverService
-        ,public toast: ToastService,public loadingCtrl:LoadingController,private mealservice:MealService
+        ,public toast: ToastService,public loadingCtrl:LoadingController,private mealservice:MealService,
+        private side : SideMenuControllerService
     ) {
         this.setupSideMenuContent();
+        this.side.setupCanteenSideMenuContent();
         //console.log(this.demo);
 
         this.commentnbr = [];

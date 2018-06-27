@@ -30,11 +30,13 @@ export class ReservationPage {
   
 
   sideMenuContent: {name: string, path: string}[] = [
+    {name: 'Home', path: 'CanteenHomePage'},
     {name: 'Menu', path: 'MenuCanteenPage'},
     {name: 'Feedback', path: 'FeedbackCanteenPage'},
-    {name: 'Mon compte', path: 'AccountPage'},
-    {name: 'MenuEtudiant', path: 'EtudiantMenuPage'}
-];
+    {name: 'MenuEtudiant', path: 'EtudiantMenuPage'},
+    {name: 'Mon compte', path: 'AccountPage'}
+    
+  ];
 
 
 reserveliste$: any;

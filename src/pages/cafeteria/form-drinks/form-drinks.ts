@@ -38,7 +38,7 @@ export class FormDrinksPage {
     userID: 'ena',
     content: undefined,
     rate: undefined,
-    date: new Date()
+    date: new Date().toDateString()
   }
 
   feeds: any = { feed: [] };

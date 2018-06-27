@@ -25,11 +25,14 @@ for (i; i < 7; i++)
 })
 export class MenuCanteenPage {
 
-  sideMenuContent: {name: string, path: string}[] = [
-    {name: 'Home', path: 'CanteenHomePage'},
-    {name: 'Feedback', path: 'FeedbackCanteenPage'},
-    {name: 'Mon compte', path: 'AccountPage'},
-    {name: 'MenuEtudiant', path: 'EtudiantMenuPage'}
+  
+sideMenuContent: {name: string, path: string}[] = [
+  {name: 'Home', path: 'CanteenHomePage'},
+  {name: 'Feedback', path: 'FeedbackCanteenPage'},
+  {name: 'Reservation', path: 'ReservationPage'},
+  {name: 'MenuEtudiant', path: 'EtudiantMenuPage'},
+  {name: 'Mon compte', path: 'AccountPage'}
+  
 ];
 
 demo: Array < Date > = fromMonday;

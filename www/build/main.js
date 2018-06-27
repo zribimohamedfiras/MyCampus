@@ -421,7 +421,7 @@ var map = {
 		41
 	],
 	"../pages/cafeteria/StudentCafeteria/orders/orders.module": [
-		637,
+		667,
 		40
 	],
 	"../pages/cafeteria/StudentCafeteria/panier/panier.module": [
@@ -429,15 +429,15 @@ var map = {
 		39
 	],
 	"../pages/cafeteria/StudentCafeteria/product-details/product-details.module": [
-		640,
+		637,
 		38
 	],
 	"../pages/cafeteria/StudentCafeteria/products/products.module": [
-		639,
+		641,
 		37
 	],
 	"../pages/cafeteria/StudentCafeteria/student-product/student-product.module": [
-		641,
+		639,
 		36
 	],
 	"../pages/cafeteria/cafeteria-home/cafeteria-home.module": [
@@ -449,11 +449,11 @@ var map = {
 		14
 	],
 	"../pages/cafeteria/form-drinks/form-drinks.module": [
-		628,
+		629,
 		13
 	],
 	"../pages/cafeteria/gestion-produit/gestion-produit.module": [
-		629,
+		628,
 		34
 	],
 	"../pages/cafeteria/hot-drinks/hot-drinks.module": [
@@ -481,11 +481,11 @@ var map = {
 		7
 	],
 	"../pages/cafeteria/viennoiserie/viennoiserie.module": [
-		642,
+		640,
 		6
 	],
 	"../pages/cafeteria/water/water.module": [
-		643,
+		642,
 		5
 	],
 	"../pages/canteen/canteen-home/canteen-home.module": [
@@ -493,7 +493,7 @@ var map = {
 		1
 	],
 	"../pages/canteen/detail-menu/detail-menu.module": [
-		645,
+		643,
 		4
 	],
 	"../pages/canteen/etudiant-menu-detail/etudiant-menu-detail.module": [
@@ -501,7 +501,7 @@ var map = {
 		3
 	],
 	"../pages/canteen/etudiant-menu/etudiant-menu.module": [
-		647,
+		645,
 		33
 	],
 	"../pages/canteen/feedback-canteen/feedback-canteen.module": [
@@ -509,23 +509,23 @@ var map = {
 		17
 	],
 	"../pages/canteen/menu-canteen/menu-canteen.module": [
-		649,
+		647,
 		32
 	],
 	"../pages/canteen/modal-page-commentaire-conteen/modal-page-commentaire-conteen.module": [
-		650,
+		649,
 		31
 	],
 	"../pages/canteen/popup-comment/popup-comment.module": [
-		651,
+		650,
 		30
 	],
 	"../pages/canteen/reservation/reservation.module": [
-		652,
+		651,
 		29
 	],
 	"../pages/canteen/testmodal/testmodal.module": [
-		653,
+		652,
 		28
 	],
 	"../pages/club/accepted-membership-applications/accepted-membership-applications.module": [
@@ -533,23 +533,23 @@ var map = {
 		27
 	],
 	"../pages/club/club-profile/club-profile.module": [
-		655,
+		653,
 		15
 	],
 	"../pages/club/coming-events/coming-events.module": [
-		656,
+		655,
 		2
 	],
 	"../pages/club/events/events.module": [
-		657,
+		656,
 		26
 	],
 	"../pages/club/membership-applications/membership-applications.module": [
-		658,
+		657,
 		25
 	],
 	"../pages/club/new-membership-applications/new-membership-applications.module": [
-		659,
+		658,
 		24
 	],
 	"../pages/club/past-events/past-events.module": [
@@ -557,15 +557,15 @@ var map = {
 		0
 	],
 	"../pages/club/rejected-membership-applications/rejected-membership-applications.module": [
-		661,
+		659,
 		23
 	],
 	"../pages/help/help.module": [
-		662,
+		661,
 		22
 	],
 	"../pages/landing/landing.module": [
-		663,
+		662,
 		21
 	],
 	"../pages/login/login.module": [
@@ -573,15 +573,15 @@ var map = {
 		18
 	],
 	"../pages/settings/settings.module": [
-		665,
+		663,
 		20
 	],
 	"../pages/signup/signup.module": [
-		666,
+		665,
 		16
 	],
 	"../pages/student/student-home/student-home.module": [
-		667,
+		666,
 		19
 	]
 };
@@ -734,6 +734,18 @@ var SideMenuControllerService = (function () {
         ];
         this.enableSideMenu(true);
         this.events.publish('sideMenu:changeContent', clubSideMenuContents);
+    };
+    SideMenuControllerService.prototype.setupCanteenSideMenuContent = function () {
+        var canteenSideMenuContents = [
+            { name: 'Home', path: 'CanteenHomePage' },
+            { name: 'Menu', path: 'MenuCanteenPage' },
+            { name: 'Feedback', path: 'FeedbackCanteenPage' },
+            { name: 'Reservation', path: 'ReservationPage' },
+            { name: 'MenuEtudiant', path: 'EtudiantMenuPage' },
+            { name: 'Mon compte', path: 'AccountPage' }
+        ];
+        this.enableSideMenu(true);
+        this.events.publish('sideMenu:changeContent', canteenSideMenuContents);
     };
     SideMenuControllerService.prototype.enableSideMenu = function (isEnabled) {
         this.menuCtrl.enable(isEnabled);
@@ -1939,8 +1951,8 @@ var AppModule = (function () {
                         { loadChildren: '../pages/account/account.module#AccountPageModule', name: 'AccountPage', segment: 'account', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/cafeteria-home/cafeteria-home.module#CafeteriaHomePageModule', name: 'CafeteriaHomePage', segment: 'cafeteria-home', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/cold-drinks/cold-drinks.module#ColdDrinksPageModule', name: 'ColdDrinksPage', segment: 'cold-drinks', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/cafeteria/form-drinks/form-drinks.module#FormDrinksPageModule', name: 'FormDrinksPage', segment: 'form-drinks', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/gestion-produit/gestion-produit.module#GestionProduitPageModule', name: 'GestionProduitPage', segment: 'gestion-produit', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/cafeteria/form-drinks/form-drinks.module#FormDrinksPageModule', name: 'FormDrinksPage', segment: 'form-drinks', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/hot-drinks/hot-drinks.module#HotDrinksPageModule', name: 'HotDrinksPage', segment: 'hot-drinks', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/nos-pizzas/nos-pizzas.module#NosPizzasPageModule', name: 'NosPizzasPage', segment: 'nos-pizzas', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/nos-sandwichs/nos-sandwichs.module#NosSandwichsPageModule', name: 'NosSandwichsPage', segment: 'nos-sandwichs', priority: 'low', defaultHistory: [] },
@@ -1948,37 +1960,37 @@ var AppModule = (function () {
                         { loadChildren: '../pages/cafeteria/pizza-form/pizza-form.module#PizzaFormPageModule', name: 'PizzaFormPage', segment: 'pizza-form', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/snacks/snacks.module#SnacksPageModule', name: 'SnacksPage', segment: 'snacks', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/StudentCafeteria/modal-commentaire-cafeteria/modal-commentaire-cafeteria.module#ModalCommentaireCafeteriaPageModule', name: 'ModalCommentaireCafeteriaPage', segment: 'modal-commentaire-cafeteria', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/cafeteria/StudentCafeteria/orders/orders.module#OrdersPageModule', name: 'OrdersPage', segment: 'orders', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/cafeteria/StudentCafeteria/panier/panier.module#PanierPageModule', name: 'PanierPage', segment: 'panier', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/cafeteria/StudentCafeteria/products/products.module#ProductsPageModule', name: 'ProductsPage', segment: 'products', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/StudentCafeteria/product-details/product-details.module#ProductDetailsPageModule', name: 'ProductDetailsPage', segment: 'product-details', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/cafeteria/StudentCafeteria/panier/panier.module#PanierPageModule', name: 'PanierPage', segment: 'panier', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/StudentCafeteria/student-product/student-product.module#StudentProductPageModule', name: 'StudentProductPage', segment: 'student-product', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/viennoiserie/viennoiserie.module#ViennoiseriePageModule', name: 'ViennoiseriePage', segment: 'viennoiserie', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/cafeteria/StudentCafeteria/products/products.module#ProductsPageModule', name: 'ProductsPage', segment: 'products', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cafeteria/water/water.module#WaterPageModule', name: 'WaterPage', segment: 'water', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/canteen/canteen-home/canteen-home.module#CanteenHomePageModule', name: 'CanteenHomePage', segment: 'canteen-home', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/canteen/detail-menu/detail-menu.module#DetailMenuPageModule', name: 'DetailMenuPage', segment: 'detail-menu', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/canteen/etudiant-menu-detail/etudiant-menu-detail.module#EtudiantMenuDetailPageModule', name: 'EtudiantMenuDetailPage', segment: 'etudiant-menu-detail', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/canteen/canteen-home/canteen-home.module#CanteenHomePageModule', name: 'CanteenHomePage', segment: 'canteen-home', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/canteen/etudiant-menu/etudiant-menu.module#EtudiantMenuPageModule', name: 'EtudiantMenuPage', segment: 'etudiant-menu', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/canteen/feedback-canteen/feedback-canteen.module#FeedbackCanteenPageModule', name: 'FeedbackCanteenPage', segment: 'feedback-canteen', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/canteen/etudiant-menu-detail/etudiant-menu-detail.module#EtudiantMenuDetailPageModule', name: 'EtudiantMenuDetailPage', segment: 'etudiant-menu-detail', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/canteen/menu-canteen/menu-canteen.module#MenuCanteenPageModule', name: 'MenuCanteenPage', segment: 'menu-canteen', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/canteen/feedback-canteen/feedback-canteen.module#FeedbackCanteenPageModule', name: 'FeedbackCanteenPage', segment: 'feedback-canteen', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/canteen/modal-page-commentaire-conteen/modal-page-commentaire-conteen.module#ModalPageCommentaireConteenPageModule', name: 'ModalPageCommentaireConteenPage', segment: 'modal-page-commentaire-conteen', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/canteen/popup-comment/popup-comment.module#PopupCommentPageModule', name: 'PopupCommentPage', segment: 'popup-comment', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/canteen/reservation/reservation.module#ReservationPageModule', name: 'ReservationPage', segment: 'reservation', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/canteen/testmodal/testmodal.module#TestmodalPageModule', name: 'TestmodalPage', segment: 'testmodal', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/club/accepted-membership-applications/accepted-membership-applications.module#AcceptedMembershipApplicationsPageModule', name: 'AcceptedMembershipApplicationsPage', segment: 'accepted-membership-applications', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/club/club-profile/club-profile.module#ClubProfilePageModule', name: 'ClubProfilePage', segment: 'club-profile', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/club/accepted-membership-applications/accepted-membership-applications.module#AcceptedMembershipApplicationsPageModule', name: 'AcceptedMembershipApplicationsPage', segment: 'accepted-membership-applications', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/club/coming-events/coming-events.module#ComingEventsPageModule', name: 'ComingEventsPage', segment: 'coming-events', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/club/events/events.module#EventsPageModule', name: 'EventsPage', segment: 'events', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/club/membership-applications/membership-applications.module#MembershipApplicationsPageModule', name: 'MembershipApplicationsPage', segment: 'membership-applications', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/club/new-membership-applications/new-membership-applications.module#NewMembershipApplicationsPageModule', name: 'NewMembershipApplicationsPage', segment: 'new-membership-applications', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/club/past-events/past-events.module#PastEventsPageModule', name: 'PastEventsPage', segment: 'past-events', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/club/rejected-membership-applications/rejected-membership-applications.module#RejectedMembershipApplicationsPageModule', name: 'RejectedMembershipApplicationsPage', segment: 'rejected-membership-applications', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/club/past-events/past-events.module#PastEventsPageModule', name: 'PastEventsPage', segment: 'past-events', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/help/help.module#HelpPageModule', name: 'HelpPage', segment: 'help', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/landing/landing.module#LandingPageModule', name: 'LandingPage', segment: 'landing', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/settings/settings.module#SettingsPageModule', name: 'SettingsPage', segment: 'settings', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/student/student-home/student-home.module#StudentHomePageModule', name: 'StudentHomePage', segment: 'student-home', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/student/student-home/student-home.module#StudentHomePageModule', name: 'StudentHomePage', segment: 'student-home', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/cafeteria/StudentCafeteria/orders/orders.module#OrdersPageModule', name: 'OrdersPage', segment: 'orders', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -2226,7 +2238,7 @@ var MyApp = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavController */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\firas\Desktop\MyCampus\src\app\app.html"*/'<!-- <div *ngIf="showSplash" class="splash">\n    <div class="spinner">\n    </div>\n</div> -->\n\n<ion-menu id="sideMenu" [content]="content" persistent="true">\n\n    <ion-content class="side-menu">\n\n        <div class="side-menu-header">\n\n            <div class="avatar-container">\n                <div class="avatar-green-bg">\n                    <img src="assets/imgs/default-avatar.png">\n                </div>\n            </div>\n\n            <div class="general-info-container">\n                <p class="username">Film Club</p>\n                <p class="detail">@ISAMM</p>\n            </div>\n\n        </div>\n\n        <div class="side-menu-options" padding>\n            <ion-list no-lines>\n                <button ion-item detail-none menuClose *ngFor="let content of sideMenuContent" (click)="navigate(content.path)" class="side-menu-option ripple">\n                    <span class="option-icon-container"><i class="{{content.name | sideMenuIconsMatcher}}"></i></span>{{content.name}}\n                </button>\n                <button ion-item detail-none menuClose class="side-menu-option ripple" (click)="navigate(\'AccountPage\')">\n                    <span class="option-icon-container"><i class="fas fa-lock"></i></span>Votre compte\n                </button>\n                <button ion-item detail-none menuClose class="side-menu-option ripple" (click)="navigate(\'SettingsPage\')">\n                    <span class="option-icon-container"><i class="fas fa-cog"></i></span>Paramètres\n                </button>\n                <button ion-item detail-none menuClose class="side-menu-option ripple" (click)="navigate(\'HelpPage\')">\n                    <span class="option-icon-container"><i class="fas fa-question-circle"></i></span>Aide\n                </button>\n                <button ion-item detail-none menuClose class="side-menu-option ripple" (click)="navigate(\'AboutPage\')">\n                    <span class="option-icon-container"><i class="fas fa-info-circle"></i></span>A propos\n                </button>\n                <button ion-item detail-none menuClose class="side-menu-option ripple" (click)="showLogoutAlert()">\n                    <span class="option-icon-container"><i class="fas fa-sign-out-alt"></i></span>Se deconnecter\n                </button>\n            </ion-list>\n        </div>\n\n    </ion-content>\n\n</ion-menu>\n\n<ion-nav #content [root]="rootPage"></ion-nav>'/*ion-inline-end:"C:\Users\firas\Desktop\MyCampus\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\firas\Desktop\MyCampus\src\app\app.html"*/'<!-- <div *ngIf="showSplash" class="splash">\n    <div class="spinner">\n    </div>\n</div> -->\n\n<ion-menu id="sideMenu" [content]="content" persistent="true">\n\n    <ion-content class="side-menu">\n\n        <div class="side-menu-header">\n\n            <div class="avatar-container">\n                <div class="avatar-green-bg">\n                    <img src="assets/imgs/default-avatar.png">\n                </div>\n            </div>\n\n            <div class="general-info-container">\n                <p class="username">Restaurant</p>\n                <p class="detail">@Campus Manouba</p>\n            </div>\n\n        </div>\n\n        <div class="side-menu-options" padding>\n            <ion-list no-lines>\n                <button ion-item detail-none menuClose *ngFor="let content of sideMenuContent" (click)="navigate(content.path)" class="side-menu-option ripple">\n                    <span class="option-icon-container"><i class="{{content.name | sideMenuIconsMatcher}}"></i></span>{{content.name}}\n                </button>\n                <button ion-item detail-none menuClose class="side-menu-option ripple" (click)="navigate(\'AccountPage\')">\n                    <span class="option-icon-container"><i class="fas fa-lock"></i></span>Votre compte\n                </button>\n                <button ion-item detail-none menuClose class="side-menu-option ripple" (click)="navigate(\'SettingsPage\')">\n                    <span class="option-icon-container"><i class="fas fa-cog"></i></span>Paramètres\n                </button>\n                <button ion-item detail-none menuClose class="side-menu-option ripple" (click)="navigate(\'HelpPage\')">\n                    <span class="option-icon-container"><i class="fas fa-question-circle"></i></span>Aide\n                </button>\n                <button ion-item detail-none menuClose class="side-menu-option ripple" (click)="navigate(\'AboutPage\')">\n                    <span class="option-icon-container"><i class="fas fa-info-circle"></i></span>A propos\n                </button>\n                <button ion-item detail-none menuClose class="side-menu-option ripple" (click)="showLogoutAlert()">\n                    <span class="option-icon-container"><i class="fas fa-sign-out-alt"></i></span>Se deconnecter\n                </button>\n            </ion-list>\n        </div>\n\n    </ion-content>\n\n</ion-menu>\n\n<ion-nav #content [root]="rootPage"></ion-nav>'/*ion-inline-end:"C:\Users\firas\Desktop\MyCampus\src\app\app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["w" /* Platform */],
             __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],

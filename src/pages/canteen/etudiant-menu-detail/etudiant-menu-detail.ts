@@ -10,6 +10,7 @@ import { Meal } from '../../../models/meal.model';
 import { ReserverService } from '../../../services_canteen/reserver.service';
 import { Reservation } from '../../../models/reservation.model';
 import { ToastService } from '../../../servicesCafeteria/toast.service';
+import { UserService } from '../../../services/user.service';
 
 
 /**
@@ -28,8 +29,13 @@ export class EtudiantMenuDetailPage {
 
   sideMenuContent: {name: string, path: string}[] = [
     {name: 'Home', path: 'CanteenHomePage'},
+    {name: 'Menu', path: 'MenuCanteenPage'},
+    {name: 'Feedback', path: 'FeedbackCanteenPage'},
+    {name: 'Reservation', path: 'ReservationPage'},
+    {name: 'MenuEtudiant', path: 'EtudiantMenuPage'},
     {name: 'Mon compte', path: 'AccountPage'}
-];
+    
+  ];
 
 defaultMsgEntre="entrer le plat d'entrée";
 defaultMsgDessert="entrer dessert";
@@ -41,11 +47,13 @@ meal:Meal;
 mealList$ : any;
 photosRepat : any;
 photosDinner : any;
+user : any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private events:Events,private mealserv:MealService,private modal: ModalController
     ,private alertCtrl: AlertController,private reserverserv:ReserverService
-    ,public toast: ToastService,public loadingCtrl:LoadingController) {
+    ,public toast: ToastService,public loadingCtrl:LoadingController,
+    public userServe: UserService) {
       this.setupSideMenuContent();
   
 
@@ -196,9 +204,15 @@ photosDinner : any;
 
 Commenter(meal:Meal, iduser: string)
 {
+  let name : string
+  this.userServe.getUserFromLocalStorage().then((use)=>{
+    this.user=use;
+    name = this.user.firstName +" "+ this.user.lastName;
+    console.log(this.user);
+  console.log(name);
   const myData= {
     commentmeal: meal,
-    commentuser: iduser
+    commentuser: name
   };
 
   const mymodal :Modal= this.modal.create('ModalPageCommentaireConteenPage', {data: myData},
@@ -212,47 +226,17 @@ Commenter(meal:Meal, iduser: string)
   mymodal.onDidDismiss((data)=> {
     console.log(data);
   })
+      
+  });
+  
+  
 }
 
 reserver(meal:Meal,iduser:string,type:string)
 {
 
   
-  /*let alert = this.alertCtrl.create({
-    title: 'Reservation',
-    subTitle: 'Choisir le nombre de plats à reserver',
-    cssClass: 'alertcss',
-    inputs: [
-      {
-        type: 'number',
-        name: 'plat',
-        placeholder: 'plats',
-        min: '1',
-        max: '5',
-        
-
-      },
-    ],
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        cssClass: 'buttoncss',
-        handler: data => {
-          console.log('Cancel clicked');
-        }
-      },
-      {
-        text: 'Reserver',
-        cssClass: 'buttoncss',
-        handler: data => {
-          console.log("campos");
-        }
-      }
-    ]
-  });
-  alert.present();
-*/
+  
 
   let alert = this.alertCtrl.create();
   alert.setTitle('Reservation');
@@ -305,18 +289,25 @@ reserver(meal:Meal,iduser:string,type:string)
     handler: data => {
       console.log('radio'+ data);
       console.log(meal.key);
-      let reserve:Reservation;
+      this.userServe.getUserFromLocalStorage().then((use)=>{
+
+        this.user=use;
+        console.log(this.user.icn)
+        let reserve:Reservation;
       reserve= new Reservation();
       reserve.meal=meal.date;
       reserve.quantity= data;
       reserve.type= type;
-      reserve.userID=iduser;
+      reserve.userID=this.user.icn;
       reserve.checked = 'false';
       reserve.date= new Date().toString();
       this.reserverserv.addreservation(reserve).then(ref=>{
         this.toast.show(`Reservation Effectuer avec succes!`);
       });
       console.log(reserve);
+  });
+
+      
     }
   })
   alert.present();

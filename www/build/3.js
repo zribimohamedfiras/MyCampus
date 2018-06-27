@@ -3247,7 +3247,7 @@ __webpack_require__(369);
 
 /***/ }),
 
-/***/ 881:
+/***/ 836:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3273,10 +3273,11 @@ var Meal = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase__ = __webpack_require__(679);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__environments_firebase_credentials__ = __webpack_require__(375);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_meal_model__ = __webpack_require__(881);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_meal_model__ = __webpack_require__(836);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_canteen_reserver_service__ = __webpack_require__(374);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_reservation_model__ = __webpack_require__(907);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__servicesCafeteria_toast_service__ = __webpack_require__(364);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_user_service__ = __webpack_require__(103);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -3303,6 +3304,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
  * Generated class for the EtudiantMenuDetailPage page.
  *
@@ -3310,7 +3312,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var EtudiantMenuDetailPage = (function () {
-    function EtudiantMenuDetailPage(navCtrl, navParams, events, mealserv, modal, alertCtrl, reserverserv, toast, loadingCtrl) {
+    function EtudiantMenuDetailPage(navCtrl, navParams, events, mealserv, modal, alertCtrl, reserverserv, toast, loadingCtrl, userServe) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -3321,8 +3323,13 @@ var EtudiantMenuDetailPage = (function () {
         this.reserverserv = reserverserv;
         this.toast = toast;
         this.loadingCtrl = loadingCtrl;
+        this.userServe = userServe;
         this.sideMenuContent = [
             { name: 'Home', path: 'CanteenHomePage' },
+            { name: 'Menu', path: 'MenuCanteenPage' },
+            { name: 'Feedback', path: 'FeedbackCanteenPage' },
+            { name: 'Reservation', path: 'ReservationPage' },
+            { name: 'MenuEtudiant', path: 'EtudiantMenuPage' },
             { name: 'Mon compte', path: 'AccountPage' }
         ];
         this.defaultMsgEntre = "entrer le plat d'entrée";
@@ -3445,54 +3452,27 @@ var EtudiantMenuDetailPage = (function () {
         this.events.publish('sideMenu:changeContent', this.sideMenuContent);
     };
     EtudiantMenuDetailPage.prototype.Commenter = function (meal, iduser) {
-        var myData = {
-            commentmeal: meal,
-            commentuser: iduser
-        };
-        var mymodal = this.modal.create('ModalPageCommentaireConteenPage', { data: myData }, {
-            cssClass: "my-modal",
-        });
-        mymodal.present();
-        mymodal.onDidDismiss(function (data) {
-            console.log(data);
+        var _this = this;
+        var name;
+        this.userServe.getUserFromLocalStorage().then(function (use) {
+            _this.user = use;
+            name = _this.user.firstName + " " + _this.user.lastName;
+            console.log(_this.user);
+            console.log(name);
+            var myData = {
+                commentmeal: meal,
+                commentuser: name
+            };
+            var mymodal = _this.modal.create('ModalPageCommentaireConteenPage', { data: myData }, {
+                cssClass: "my-modal",
+            });
+            mymodal.present();
+            mymodal.onDidDismiss(function (data) {
+                console.log(data);
+            });
         });
     };
     EtudiantMenuDetailPage.prototype.reserver = function (meal, iduser, type) {
-        /*let alert = this.alertCtrl.create({
-          title: 'Reservation',
-          subTitle: 'Choisir le nombre de plats à reserver',
-          cssClass: 'alertcss',
-          inputs: [
-            {
-              type: 'number',
-              name: 'plat',
-              placeholder: 'plats',
-              min: '1',
-              max: '5',
-              
-      
-            },
-          ],
-          buttons: [
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              cssClass: 'buttoncss',
-              handler: data => {
-                console.log('Cancel clicked');
-              }
-            },
-            {
-              text: 'Reserver',
-              cssClass: 'buttoncss',
-              handler: data => {
-                console.log("campos");
-              }
-            }
-          ]
-        });
-        alert.present();
-      */
         var _this = this;
         var alert = this.alertCtrl.create();
         alert.setTitle('Reservation');
@@ -3538,18 +3518,22 @@ var EtudiantMenuDetailPage = (function () {
             handler: function (data) {
                 console.log('radio' + data);
                 console.log(meal.key);
-                var reserve;
-                reserve = new __WEBPACK_IMPORTED_MODULE_7__models_reservation_model__["a" /* Reservation */]();
-                reserve.meal = meal.date;
-                reserve.quantity = data;
-                reserve.type = type;
-                reserve.userID = iduser;
-                reserve.checked = 'false';
-                reserve.date = new Date().toString();
-                _this.reserverserv.addreservation(reserve).then(function (ref) {
-                    _this.toast.show("Reservation Effectuer avec succes!");
+                _this.userServe.getUserFromLocalStorage().then(function (use) {
+                    _this.user = use;
+                    console.log(_this.user.icn);
+                    var reserve;
+                    reserve = new __WEBPACK_IMPORTED_MODULE_7__models_reservation_model__["a" /* Reservation */]();
+                    reserve.meal = meal.date;
+                    reserve.quantity = data;
+                    reserve.type = type;
+                    reserve.userID = _this.user.icn;
+                    reserve.checked = 'false';
+                    reserve.date = new Date().toString();
+                    _this.reserverserv.addreservation(reserve).then(function (ref) {
+                        _this.toast.show("Reservation Effectuer avec succes!");
+                    });
+                    console.log(reserve);
                 });
-                console.log(reserve);
             }
         });
         alert.present();
@@ -3561,7 +3545,8 @@ var EtudiantMenuDetailPage = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["t" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Events */], __WEBPACK_IMPORTED_MODULE_2__services_canteen_meal_service__["a" /* MealService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* ModalController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_6__services_canteen_reserver_service__["a" /* ReserverService */],
-            __WEBPACK_IMPORTED_MODULE_8__servicesCafeteria_toast_service__["a" /* ToastService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* LoadingController */]])
+            __WEBPACK_IMPORTED_MODULE_8__servicesCafeteria_toast_service__["a" /* ToastService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_9__services_user_service__["a" /* UserService */]])
     ], EtudiantMenuDetailPage);
     return EtudiantMenuDetailPage;
 }());

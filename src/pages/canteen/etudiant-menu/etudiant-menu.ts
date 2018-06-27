@@ -24,10 +24,12 @@ for (i; i < 7; i++)
 export class EtudiantMenuPage {
   sideMenuContent: {name: string, path: string}[] = [
     {name: 'Home', path: 'CanteenHomePage'},
+    {name: 'Menu', path: 'MenuCanteenPage'},
     {name: 'Feedback', path: 'FeedbackCanteenPage'},
-    {name: 'Mon compte', path: 'AccountPage'},
-    {name: 'MenuEtudiant', path: 'EtudiantMenuPage'}
-];
+    {name: 'Reservation', path: 'ReservationPage'},
+    {name: 'Mon compte', path: 'AccountPage'}
+    
+  ];
 
 defaultMsgEntre="entrer le plat d'entrée";
 defaultMsgDessert="entrer dessert";

@@ -26,9 +26,13 @@ export class DetailMenuPage {
 
   sideMenuContent: {name: string, path: string}[] = [
     {name: 'Home', path: 'CanteenHomePage'},
+    {name: 'Menu', path: 'MenuCanteenPage'},
+    {name: 'Feedback', path: 'FeedbackCanteenPage'},
+    {name: 'Reservation', path: 'ReservationPage'},
+    {name: 'MenuEtudiant', path: 'EtudiantMenuPage'},
     {name: 'Mon compte', path: 'AccountPage'}
-];
-
+    
+  ];
 test : number;
 cmt="test";
 startrepat=true;

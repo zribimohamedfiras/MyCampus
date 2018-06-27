@@ -27,9 +27,11 @@ export class FeedbackCanteenPage {
   sideMenuContent: {name: string, path: string}[] = [
     {name: 'Home', path: 'CanteenHomePage'},
     {name: 'Menu', path: 'MenuCanteenPage'},
-    {name: 'Mon compte', path: 'AccountPage'},
-    {name: 'test', path: 'TestmodalPage'}
-];
+    {name: 'Reservation', path: 'ReservationPage'},
+    {name: 'MenuEtudiant', path: 'EtudiantMenuPage'},
+    {name: 'Mon compte', path: 'AccountPage'}
+    
+  ];
 
 
 mealList$:any;
